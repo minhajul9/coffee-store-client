@@ -2,6 +2,7 @@ import { useLoaderData } from 'react-router-dom'
 import './App.css'
 import CoffeeCard from './component/CoffeeCard';
 import { useState } from 'react';
+import Swal from 'sweetalert2';
 
 
 function App() {
@@ -11,7 +12,37 @@ function App() {
   const [coffees, setCoffees] = useState(loadedCoffees);
 
   const handleDeleteCoffee = id => {
-    
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        fetch(`http://localhost:5000/coffee/${id}`, {
+          method: "DELETE"
+        })
+          .then(res => res.json())
+          .then(data => {
+            // console.log(data);
+            if (data.deletedCount === 1) {
+              Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              )
+
+              const remaining = coffees.filter( coffee => coffee._id !== id)
+
+              setCoffees(remaining)
+            }
+          })
+      }
+    })
   }
 
 

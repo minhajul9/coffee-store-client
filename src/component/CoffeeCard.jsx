@@ -1,8 +1,8 @@
 import React from 'react';
 
-const CoffeeCard = ({ coffee }) => {
+const CoffeeCard = ({ coffee, handleDeleteCoffee }) => {
 
-    const { name, quantity, supplier, taste, category, details, photo } = coffee;
+    const {_id, name, quantity, supplier, taste, category, details, photo } = coffee;
 
     return (
         <div className="card card-side bg-base-100 shadow-xl">
@@ -18,7 +18,7 @@ const CoffeeCard = ({ coffee }) => {
                     <div className="btn-group btn-group-vertical space-y-4">
                         <button className="btn">View</button>
                         <button className="btn">Edit</button>
-                        <button className="btn">X</button>
+                        <button onClick={() => handleDeleteCoffee(_id)} className="btn">X</button>
                     </div>
                 </div>
             </div>
