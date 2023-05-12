@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const CoffeeCard = ({ coffee, handleDeleteCoffee }) => {
 
-    const {_id, name, quantity, supplier, taste, category, details, photo } = coffee;
+    const { _id, name, quantity, supplier, taste, category, details, photo } = coffee;
 
     return (
         <div className="card card-side bg-base-100 shadow-xl">
@@ -17,8 +18,10 @@ const CoffeeCard = ({ coffee, handleDeleteCoffee }) => {
                 <div className="card-actions justify-end">
                     <div className="btn-group btn-group-vertical space-y-4">
                         <button className="btn">View</button>
-                        <button className="btn">Edit</button>
-                        <button onClick={() => handleDeleteCoffee(_id)} className="btn">X</button>
+                        <Link to={`updateCoffee/${_id}`}>
+                            <button className="btn">Edit</button>
+                        </Link>
+                        <button onClick={() => handleDeleteCoffee(_id)} className="btn bg-red-500">X</button>
                     </div>
                 </div>
             </div>
